@@ -51,165 +51,16 @@ public class GalleryActivity extends AppCompatActivity {
 
 
         getConvoImage();
-        getTarunyaImage();
-        getLakshyaImage();
-        getIndependenecImage();
-        getRepublicImage();
-        getCampusImage();
-        getOtherImage();
+     //   getTarunyaImage();
+       // getLakshyaImage();
+      //  getIndependenecImage();
+      //  getRepublicImage();
+      //  getCampusImage();
+      //  getOtherImage();
 
 
     }
 
-    private void getOtherImage() {
-
-        reference.child("Others");
-        reference.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                list1 = new ArrayList<>();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    ImageData data = dataSnapshot.getValue(ImageData.class);
-                    list1.add(data);
-                }
-                othersRecycler.setHasFixedSize(true);
-                othersRecycler.setLayoutManager(new GridLayoutManager(GalleryActivity.this,3));
-                adapter=new GalleryAdapter(GalleryActivity.this,list1);
-                othersRecycler.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(GalleryActivity.this,"Something Went Wron",Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void getCampusImage() {
-        reference.child("CIT Campus");
-        reference.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                list2 = new ArrayList<>();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    ImageData data = dataSnapshot.getValue(ImageData.class);
-                    list2.add(data);
-                }
-                campusRecycler.setHasFixedSize(true);
-                campusRecycler.setLayoutManager(new GridLayoutManager(GalleryActivity.this,3));
-                adapter=new GalleryAdapter(GalleryActivity.this,list2);
-                campusRecycler.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(GalleryActivity.this,"Something Went Wron",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
-
-    private void getRepublicImage() {
-        reference.child("Republic Day");
-        reference.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                list3 = new ArrayList<>();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    ImageData data = dataSnapshot.getValue(ImageData.class);
-                    list3.add(data);
-                }
-                republicRecycler.setHasFixedSize(true);
-                republicRecycler.setLayoutManager(new GridLayoutManager(GalleryActivity.this,3));
-                adapter=new GalleryAdapter(GalleryActivity.this,list3);
-                republicRecycler.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(GalleryActivity.this,"Something Went Wron",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
-
-    private void getIndependenecImage() {
-        reference.child("Independence Day");
-        reference.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                list4 = new ArrayList<>();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    ImageData data = dataSnapshot.getValue(ImageData.class);
-                    list4.add(data);
-                }
-                inRecycler.setHasFixedSize(true);
-                inRecycler.setLayoutManager(new GridLayoutManager(GalleryActivity.this,3));
-                adapter=new GalleryAdapter(GalleryActivity.this,list4);
-                inRecycler.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(GalleryActivity.this,"Something Went Wron",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
-
-    private void getLakshyaImage() {
-        reference.child("Lakshya");
-        reference.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                list5 = new ArrayList<>();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    ImageData data = dataSnapshot.getValue(ImageData.class);
-                    list5.add(data);
-                }
-                lakshyaRecycler.setHasFixedSize(true);
-                lakshyaRecycler.setLayoutManager(new GridLayoutManager(GalleryActivity.this,3));
-                adapter=new GalleryAdapter(GalleryActivity.this,list5);
-                lakshyaRecycler.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(GalleryActivity.this,"Something Went Wron",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
-
-    private void getTarunyaImage() {
-        reference.child("Tarunya");
-        reference.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                list6 = new ArrayList<>();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    ImageData data = dataSnapshot.getValue(ImageData.class);
-                    list6.add(data);
-                }
-                tarunyaRecycler.setHasFixedSize(true);
-                tarunyaRecycler.setLayoutManager(new GridLayoutManager(GalleryActivity.this,3));
-                adapter=new GalleryAdapter(GalleryActivity.this,list6);
-                tarunyaRecycler.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(GalleryActivity.this,"Something Went Wron",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
 
     private void getConvoImage() {
         reference.child("Convocation");
@@ -219,8 +70,10 @@ public class GalleryActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list7 = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    ImageData data = dataSnapshot.getValue(ImageData.class);
+                  ImageData data = dataSnapshot.getValue(ImageData.class);
+
                     list7.add(data);
+
                 }
                 convoRecycler.setHasFixedSize(true);
                 convoRecycler.setLayoutManager(new GridLayoutManager(GalleryActivity.this,3));
