@@ -5,7 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,36 +20,68 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class MarksActivity extends AppCompatActivity {
-    RecyclerView recyclerView;
-    DatabaseReference database;
-    MarksAdapter marksAdapter;
-    ArrayList<MarksData> list;
+    RecyclerView showMarksRecycler;
 
+    ArrayList<MarksData> marks;
+    MarksAdapter adapter;
+
+    DatabaseReference reference1;
+    ProgressDialog pd1;
+    private static final String TAG = "MarksActivity";
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_marks);
-        recyclerView =findViewById(R.id.marksRecyclerView);
-        database= FirebaseDatabase.getInstance().getReference("Marks");
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        list=new ArrayList<>();
-        marksAdapter=new MarksAdapter(this,list);
-        recyclerView.setAdapter(marksAdapter);
-        database.addValueEventListener(new ValueEventListener() {
+
+        showMarksRecycler=findViewById(R.id.showMarksRecycler);
+
+
+
+        pd1=new ProgressDialog(this);
+        reference1= FirebaseDatabase.getInstance().getReference().child("Marks");
+        showMarksRecycler.setLayoutManager(new LinearLayoutManager(this));
+        showMarksRecycler.setHasFixedSize(true);
+
+
+        getMarks();
+
+            }
+    private void getMarks() {
+        pd1.setTitle("Please wait...");
+        pd1.setMessage("Marks Loading...");
+        pd1.show();
+        reference1.addValueEventListener(new ValueEventListener() {
+
+
+            //add data into list
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-            for (DataSnapshot dataSnapshot:snapshot.getChildren()){
-                MarksData marksData=dataSnapshot.getValue(MarksData.class);
-                list.add(marksData);
-            }
-            marksAdapter.notifyDataSetChanged();
+                marks=new ArrayList<>();
+                for(DataSnapshot dataSnapshot :snapshot.getChildren()){
+                    MarksData data=dataSnapshot.getValue(MarksData.class);
+                        marks.add(0, data);
+
+                }
+                pd1.dismiss();
+                adapter=new MarksAdapter(MarksActivity.this,marks);
+                adapter.notifyDataSetChanged();
+
+                showMarksRecycler.setAdapter(adapter);
+
+
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+                pd1.dismiss();
+                Toast.makeText(MarksActivity.this,error.getMessage(),Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "DatabaseError: " + error.getMessage());
+
             }
         });
     }
-}
+
+        }
